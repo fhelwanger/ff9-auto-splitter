@@ -1,6 +1,7 @@
 state("FF9")
 {
     bool isLoading: 0x0115BEA8, 0x3A0, 0x78, 0x98, 0x710, 0x84;
+    int isFmv: "MSVCR120.dll", 0xDC518;
     int sceneId: 0x0106EBB8, 0x38, 0x20, 0x80, 0x210, 0x28, 0x10, 0x10, 0x5C;
 }
 
@@ -89,5 +90,5 @@ split
 
 isLoading
 {
-    return current.isLoading;
+    return current.isLoading && current.isFmv == 0;
 }
