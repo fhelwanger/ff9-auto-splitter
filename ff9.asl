@@ -2,6 +2,9 @@ state("FF9")
 {
     int sceneId: "FF9.exe", 0x0106EBB8, 0x38, 0x20, 0x80, 0x210, 0x28, 0x10, 0x10, 0x5C;
     int sceneType: "FF9.exe", 0x0115BEA8, 0x48, 0x10, 0x98, 0x270, 0x10, 0x140; // Bundle = 0, Field = 1, World = 2, Battle = 3, Title = 4, QuadMist = 5, Pure = 6, Ending = 7, EndGame = 8, None = 9
+
+    string50 focusedElement: "FF9.exe", 0x01116790, 0x10, 0x0, 0x10, 0x58, 0x0;
+    int buttonPressed: "mono.dll", 0x002635B8, 0x0, 0x38, 0x100, 0xB8, 0x138;
 }
 
 startup
@@ -75,6 +78,8 @@ startup
             vars.componentSceneType = component;
         }
     }
+
+    vars.newGameButtonFocused = false;
 }
 
 update
@@ -92,8 +97,12 @@ update
 
 start
 {
-    // The value changes only after 0.65 seconds of "New Game" input
-    if (old.sceneId == 0 && current.sceneId == 70)
+    if (current.focusedElement != "New Game Object")
+    {
+        vars.newGameButtonFocused = current.sceneType == 4 && current.focusedElement == "New Game Button Pointer";
+    }
+
+    if (vars.newGameButtonFocused && current.buttonPressed == 1)
     {
         vars.executedSplits.Clear();
         return true;
