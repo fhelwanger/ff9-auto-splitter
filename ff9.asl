@@ -1,8 +1,7 @@
 state("FF9")
 {
-    bool isLoading: 0x0115BEA8, 0x3A0, 0x78, 0x98, 0x710, 0x84;
-    int isFmv: "MSVCR120.dll", 0xDC518;
-    int sceneId: 0x0106EBB8, 0x38, 0x20, 0x80, 0x210, 0x28, 0x10, 0x10, 0x5C;
+    int sceneId: "FF9.exe", 0x0106EBB8, 0x38, 0x20, 0x80, 0x210, 0x28, 0x10, 0x10, 0x5C;
+    int sceneType: "FF9.exe", 0x0115BEA8, 0x48, 0x10, 0x98, 0x270, 0x10, 0x140; // Bundle = 0, Field = 1, World = 2, Battle = 3, Title = 4, QuadMist = 5, Pure = 6, Ending = 7, EndGame = 8, None = 9
 }
 
 startup
@@ -42,13 +41,38 @@ startup
     AddSplit("disc1", "burmercia", "Enter Burmercia", 9000, 750);
     AddSplit("disc1", "beatrix1", "Beatrix 1", 4, 768);
 
+    settings.Add("disc2", true, "Disc 2 Splits");
+    AddSplit("disc2", "blackwaltz32", "Black Waltz 3 2", 52, 811);
+    AddSplit("disc2", "ralvurahva", "Ralvurahva", 76, 956);
+    AddSplit("disc2", "cleyra", "Cleyra Settlement", 1050, 1051);
+    AddSplit("disc2", "antlion", "Antlion", 300, 1052);
+    AddSplit("disc2", "beatrix2", "Beatrix 2", 299, 1108);
+    AddSplit("disc2", "guards", "Guards", 1209, 1211);
+    AddSplit("disc2", "tantarian", "Tantarian", 930, 1216);
+    AddSplit("disc2", "zornandthorn", "Zorn & Thorn", 74, 1205);
+    AddSplit("disc2", "beatrix3", "Beatrix 3", 73, 1225);
+    AddSplit("disc2", "ralvuimago", "Ralvuimago", 75, 955);
+    AddSplit("disc2", "lani", "Lani", 83, 1424);
+    AddSplit("disc2", "fossilroo", "Exit Fossil Roo", 1425, 9003);
+    AddSplit("disc2", "blackmagevillage", "Exit Black Mage Village", 1450, 9003);
+    AddSplit("disc2", "hilgigars", "Hilgigars", 107, 1555);
+    AddSplit("disc2", "enteriifatree", "Enter Iifa Tree", 9003, 1650);
+    AddSplit("disc2", "soulcage", "Soulcage", 116, 1756);
+    AddSplit("disc2", "amarant", "Amarant", 132, 1605);
+
     vars.componentSceneId = null;
+    vars.componentSceneType = null;
 
     foreach (dynamic component in timer.Layout.Components.Where(x => x.GetType().Name == "TextComponent"))
     {
         if (component.Settings.Text1 == "SceneId:")
         {
             vars.componentSceneId = component;
+        }
+
+        if (component.Settings.Text1 == "SceneType:")
+        {
+            vars.componentSceneType = component;
         }
     }
 }
@@ -58,6 +82,11 @@ update
     if (vars.componentSceneId != null)
     {
         vars.componentSceneId.Settings.Text2 = current.sceneId.ToString();
+    }
+
+    if (vars.componentSceneType != null)
+    {
+        vars.componentSceneType.Settings.Text2 = current.sceneType.ToString();
     }
 }
 
@@ -90,5 +119,5 @@ split
 
 isLoading
 {
-    return current.isLoading && current.isFmv == 0;
+    return current.sceneType == 9;
 }
