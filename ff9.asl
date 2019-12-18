@@ -93,15 +93,26 @@ update
     {
         vars.componentSceneType.Settings.Text2 = current.sceneType.ToString();
     }
+
+    if (current.sceneType == 4)
+    {
+        if (current.focusedElement == "New Game Button Pointer")
+        {
+            vars.newGameButtonFocused = true;
+        }
+        else if (current.focusedElement == "Continue Button Pointer" || current.focusedElement == "Load Game Button Pointer" || current.focusedElement == "Cloud Button Pointer")
+        {
+            vars.newGameButtonFocused = false;
+        }
+    }
+    else
+    {
+        vars.newGameButtonFocused = false;
+    }
 }
 
 start
 {
-    if (current.focusedElement != "New Game Object")
-    {
-        vars.newGameButtonFocused = current.sceneType == 4 && current.focusedElement == "New Game Button Pointer";
-    }
-
     if (vars.newGameButtonFocused && current.buttonPressed == 1)
     {
         vars.executedSplits.Clear();
