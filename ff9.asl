@@ -62,6 +62,19 @@ startup
     AddSplit("disc2", "enteriifatree", "Enter Iifa Tree", 9003, 1650);
     AddSplit("disc2", "soulcage", "Soulcage", 116, 1756);
     AddSplit("disc2", "amarant", "Amarant", 132, 1605);
+    AddSplit("disc2", "iifatreedone", "Iifa Tree Done", 1655, 1656);
+
+    settings.Add("disc3", true, "Disc 3 Splits");
+    AddSplit("disc3", "cards", "Card Tournament", 1903, 2054);
+    AddSplit("disc3", "mistodons", "Mistodons", 915, 1807);
+    AddSplit("disc3", "bluenarciss", "Blue Narciss", 2173, 2855);
+    AddSplit("disc3", "sand", "Sand", 9003, 2200);
+    AddSplit("disc3", "oeilvert", "Enter Oeilvert", 9005, 2250);
+    AddSplit("disc3", "ark", "Ark", 0, 2260);
+    AddSplit("disc3", "valiapira", "Valia Pira", 525, 2222);
+    AddSplit("disc3", "estogaza", "Enter Esto Gaza", 9003, 2300);
+
+    settings.Add("disc4", true, "Disc 4 Splits");
 
     vars.componentSceneId = null;
     vars.componentSceneType = null;
