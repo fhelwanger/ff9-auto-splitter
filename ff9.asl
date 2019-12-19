@@ -5,6 +5,8 @@ state("FF9")
 
     string50 focusedElement: "FF9.exe", 0x01116790, 0x10, 0x0, 0x10, 0x58, 0x0;
     int buttonPressed: "mono.dll", 0x002635B8, 0x0, 0x38, 0x100, 0xB8, 0x138;
+
+    ushort necronHP: "FF9.exe", 0x0106EBB8, 0x38, 0x98, 0x20, 0x28, 0xD0, 0x38, 0x48, 0x210, 0x40;
 }
 
 startup
@@ -73,8 +75,29 @@ startup
     AddSplit("disc3", "ark", "Ark", 0, 2260);
     AddSplit("disc3", "valiapira", "Valia Pira", 525, 2222);
     AddSplit("disc3", "estogaza", "Enter Esto Gaza", 9003, 2300);
+    AddSplit("disc3", "reddragons", "Red Dragons", 195, 2361);
+    AddSplit("disc3", "meltigemini", "Meltigemini", 200, 2364);
+    AddSplit("disc3", "ipsencastle", "Enter Ipsen's Castle", 9007, 2500);
+    AddSplit("disc3", "taharka", "Taharka", 871, 2510);
+    AddSplit("disc3", "earthshrine", "Enter Earth Shrine", 9007, 2550);
+    AddSplit("disc3", "earthguardian", "Earth Guardian", 2, 2553);
+    AddSplit("disc3", "branbal", "Enter Bran Bal", 2650, 2651);
+    AddSplit("disc3", "amdusias", "Amdusias", 155, 2706);
+    AddSplit("disc3", "abadon", "Abadon", 160, 2707);
+    AddSplit("disc3", "shelldragon", "Shell Dragon", 163, 2708);
+    AddSplit("disc3", "silverdragon", "Silver Dragon", 889, 2715);
+    AddSplit("disc3", "garland", "Garland", 890, 2715);
+    AddSplit("disc3", "kuja", "Kuja", 891, 2720);
 
     settings.Add("disc4", true, "Disc 4 Splits");
+    AddSplit("disc4", "novadragon", "Nova Dragon", 931, 2753);
+    AddSplit("disc4", "maliris", "Maliris", 932, 2904);
+    AddSplit("disc4", "tiamat", "Tiamat", 933, 2908);
+    AddSplit("disc4", "kraken", "Kraken", 934, 2915);
+    AddSplit("disc4", "lich", "Lich", 935, 2919);
+    AddSplit("disc4", "deathguise", "Deathguise", 936, 2926);
+    AddSplit("disc4", "trancekuja", "Trance Kuja", 937, 2928);
+    AddSplit("disc4", "necron", "Necron", 938, 938);
 
     vars.componentSceneId = null;
     vars.componentSceneType = null;
@@ -144,6 +167,13 @@ split
 
         if (old.sceneId == vars.splitsOldSceneId[split] && current.sceneId == vars.splitsCurrentSceneId[split])
         {
+            // Necron (and some other bosses) has 10k "extra" HP to trigger cutscenes after death
+            // Also, 0 means his HP hasn't loaded yet
+            if (split == "disc4.necron" && (current.necronHP > 10000 || current.necronHP == 0))
+            {
+                continue;
+            }
+
             vars.executedSplits.Add(split);
             return true;
         }
