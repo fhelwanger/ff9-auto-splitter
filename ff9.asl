@@ -2,11 +2,11 @@ state("FF9")
 {
     int sceneId: "FF9.exe", 0x0106EBB8, 0x38, 0x20, 0x80, 0x210, 0x28, 0x10, 0x10, 0x5C;
     int sceneType: "FF9.exe", 0x0115BEA8, 0x48, 0x10, 0x98, 0x270, 0x10, 0x140; // Bundle = 0, Field = 1, World = 2, Battle = 3, Title = 4, QuadMist = 5, Pure = 6, Ending = 7, EndGame = 8, None = 9
-
+    int battleId: "FF9.exe", 0x0106EBB8, 0x38, 0x20, 0x80, 0x208, 0x20, 0x64;
+    bool isRandomEncounter: "FF9.exe", 0x0106EBB8, 0x38, 0x98, 0x80, 0xB0, 0x58, 0x28, 0xE4;
+    ushort necronHP: "FF9.exe", 0x0106EBB8, 0x38, 0x98, 0x20, 0x28, 0xD0, 0x38, 0x48, 0x210, 0x40;
     string50 focusedElement: "FF9.exe", 0x01116790, 0x10, 0x0, 0x10, 0x58, 0x0;
     int buttonPressed: "mono.dll", 0x002635B8, 0x0, 0x38, 0x100, 0xB8, 0x138;
-
-    ushort necronHP: "FF9.exe", 0x0106EBB8, 0x38, 0x98, 0x20, 0x28, 0xD0, 0x38, 0x48, 0x210, 0x40;
 }
 
 startup
@@ -99,37 +99,14 @@ startup
     AddSplit("disc4", "trancekuja", "Trance Kuja", 937, 2928);
     AddSplit("disc4", "necron", "Necron", 938, 938);
 
-    vars.componentSceneId = null;
-    vars.componentSceneType = null;
-
-    foreach (dynamic component in timer.Layout.Components.Where(x => x.GetType().Name == "TextComponent"))
-    {
-        if (component.Settings.Text1 == "SceneId:")
-        {
-            vars.componentSceneId = component;
-        }
-
-        if (component.Settings.Text1 == "SceneType:")
-        {
-            vars.componentSceneType = component;
-        }
-    }
+    settings.Add("debug", false, "Debug Stuff");
+    settings.SetToolTip("debug", "Add a TextComponent with \"SceneId:\", \"SceneType:\", \"BattleId:\" or \"IsRandom:\" on the left text to show the variables' values. Used only to debug problems in the auto splitter.");
 
     vars.newGameButtonFocused = false;
 }
 
 update
 {
-    if (vars.componentSceneId != null)
-    {
-        vars.componentSceneId.Settings.Text2 = current.sceneId.ToString();
-    }
-
-    if (vars.componentSceneType != null)
-    {
-        vars.componentSceneType.Settings.Text2 = current.sceneType.ToString();
-    }
-
     if (current.sceneType == 4)
     {
         if (current.focusedElement == "New Game Button Pointer")
@@ -144,6 +121,52 @@ update
     else
     {
         vars.newGameButtonFocused = false;
+    }
+
+    if (settings["debug"])
+    {
+        Func<string, dynamic> FindComponentByLeftText = text =>
+            timer.Layout.Components.FirstOrDefault((dynamic x) => x.GetType().Name == "TextComponent" && x.Settings.Text1 == text);
+
+        if (old.sceneId != current.sceneId)
+        {
+            var componentSceneId = FindComponentByLeftText("SceneId:");
+
+            if (componentSceneId != null)
+            {
+                componentSceneId.Settings.Text2 = current.sceneId.ToString();
+            }
+        }
+
+        if (old.sceneType != current.sceneType)
+        {
+            var componentSceneType = FindComponentByLeftText("SceneType:");
+
+            if (componentSceneType != null)
+            {
+                componentSceneType.Settings.Text2 = current.sceneType.ToString();
+            }
+        }
+
+        if (old.battleId != current.battleId)
+        {
+            var componentBattleId = FindComponentByLeftText("BattleId:");
+
+            if (componentBattleId != null)
+            {
+                componentBattleId.Settings.Text2 = current.battleId.ToString();
+            }
+        }
+
+        if (old.isRandomEncounter != current.isRandomEncounter)
+        {
+            var componentIsRandom = FindComponentByLeftText("IsRandom:");
+
+            if (componentIsRandom != null)
+            {
+                componentIsRandom.Settings.Text2 = current.isRandomEncounter.ToString();
+            }
+        }
     }
 }
 
