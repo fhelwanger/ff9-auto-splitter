@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Run version="1.7.0">
   <GameIcon />
   <GameName>Final Fantasy IX</GameName>
@@ -233,7 +233,7 @@
       <SegmentHistory />
     </Segment>
     <Segment>
-      <Name>Tanrarian</Name>
+      <Name>Tantarian</Name>
       <Icon />
       <SplitTimes>
         <SplitTime name="Personal Best" />
