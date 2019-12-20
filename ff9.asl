@@ -11,6 +11,24 @@ state("FF9")
 
 startup
 {
+    vars.FindComponentByLeftText = (Func<string, dynamic>)(
+        text => timer.Layout.Components.FirstOrDefault((dynamic x) => x.GetType().Name == "TextComponent" && x.Settings.Text1 == text)
+    );
+
+    vars.UpdateEncounterCounter = (Action<int>)(
+        count =>
+        {
+            vars.encounters = count;
+
+            var componentEncounters = vars.FindComponentByLeftText("Encounters:");
+
+            if (componentEncounters != null)
+            {
+                componentEncounters.Settings.Text2 = vars.encounters.ToString();
+            }
+        }
+    );
+
     vars.splits = new List<string>();
     vars.splitsOldSceneId = new Dictionary<string, int>();
     vars.splitsCurrentSceneId = new Dictionary<string, int>();
@@ -99,10 +117,14 @@ startup
     AddSplit("disc4", "trancekuja", "Trance Kuja", 937, 2928);
     AddSplit("disc4", "necron", "Necron", 938, 938);
 
+    settings.Add("counter", true, "Encounter Counter");
+    settings.SetToolTip("counter", "Add a TextComponent with \"Encounters:\" on the left text to show the counter.");
+
     settings.Add("debug", false, "Debug Stuff");
     settings.SetToolTip("debug", "Add a TextComponent with \"SceneId:\", \"SceneType:\", \"BattleId:\" or \"IsRandom:\" on the left text to show the variables' values. Used only to debug problems in the auto splitter.");
 
     vars.newGameButtonFocused = false;
+    vars.encounters = 0;
 }
 
 update
@@ -123,14 +145,21 @@ update
         vars.newGameButtonFocused = false;
     }
 
+    if (settings["counter"] && old.sceneType != 3 && current.sceneType == 3)
+    {
+        var ragtimeBattleIds = new List<int> { 627, 634, 753, 755, 941, 942, 943, 944 };
+
+        if (current.isRandomEncounter || ragtimeBattleIds.Contains(current.battleId))
+        {
+            vars.UpdateEncounterCounter(vars.encounters++);
+        }
+    }
+
     if (settings["debug"])
     {
-        Func<string, dynamic> FindComponentByLeftText = text =>
-            timer.Layout.Components.FirstOrDefault((dynamic x) => x.GetType().Name == "TextComponent" && x.Settings.Text1 == text);
-
         if (old.sceneId != current.sceneId)
         {
-            var componentSceneId = FindComponentByLeftText("SceneId:");
+            var componentSceneId = vars.FindComponentByLeftText("SceneId:");
 
             if (componentSceneId != null)
             {
@@ -140,7 +169,7 @@ update
 
         if (old.sceneType != current.sceneType)
         {
-            var componentSceneType = FindComponentByLeftText("SceneType:");
+            var componentSceneType = vars.FindComponentByLeftText("SceneType:");
 
             if (componentSceneType != null)
             {
@@ -150,7 +179,7 @@ update
 
         if (old.battleId != current.battleId)
         {
-            var componentBattleId = FindComponentByLeftText("BattleId:");
+            var componentBattleId = vars.FindComponentByLeftText("BattleId:");
 
             if (componentBattleId != null)
             {
@@ -160,7 +189,7 @@ update
 
         if (old.isRandomEncounter != current.isRandomEncounter)
         {
-            var componentIsRandom = FindComponentByLeftText("IsRandom:");
+            var componentIsRandom = vars.FindComponentByLeftText("IsRandom:");
 
             if (componentIsRandom != null)
             {
@@ -174,6 +203,7 @@ start
 {
     if (vars.newGameButtonFocused && current.buttonPressed == 1)
     {
+        vars.UpdateEncounterCounter(0);
         vars.executedSplits.Clear();
         return true;
     }
