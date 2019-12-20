@@ -4,7 +4,7 @@ state("FF9")
     int sceneType: "FF9.exe", 0x0115BEA8, 0x48, 0x10, 0x98, 0x270, 0x10, 0x140; // Bundle = 0, Field = 1, World = 2, Battle = 3, Title = 4, QuadMist = 5, Pure = 6, Ending = 7, EndGame = 8, None = 9
     int battleId: "FF9.exe", 0x0106EBB8, 0x38, 0x20, 0x80, 0x208, 0x20, 0x64;
     bool isRandomEncounter: "FF9.exe", 0x0106EBB8, 0x38, 0x98, 0x80, 0xB0, 0x58, 0x28, 0xE4;
-    ushort necronHP: "FF9.exe", 0x0106EBB8, 0x38, 0x20, 0x28, 0xD0, 0x38, 0x38, 0x10, 0x50, 0x40;
+    ushort necronHp: "FF9.exe", 0x0106EBB8, 0x38, 0x20, 0x28, 0xD0, 0x38, 0x38, 0x10, 0x50, 0x40;
     string50 focusedElement: "FF9.exe", 0x01116790, 0x10, 0x0, 0x10, 0x58, 0x0;
     bool buttonPressed: "mono.dll", 0x002635B8, 0x0, 0x38, 0x100, 0xB8, 0x138;
 }
@@ -124,6 +124,7 @@ startup
     settings.SetToolTip("debug", "Add a TextComponent with \"SceneId:\", \"SceneType:\", \"BattleId:\" or \"IsRandom:\" on the left text to show the variables' values. Used only to debug problems in the auto splitter.");
 
     vars.newGameButtonFocused = false;
+    vars.necronHpLoaded = false;
     vars.encounters = 0;
 }
 
@@ -143,6 +144,11 @@ update
     else
     {
         vars.newGameButtonFocused = false;
+    }
+
+    if (current.sceneId != 938)
+    {
+        vars.necronHpLoaded = false;
     }
 
     if (settings["counter"] && old.sceneType != 3 && current.sceneType == 3)
@@ -220,11 +226,19 @@ split
 
         if (old.sceneId == vars.splitsOldSceneId[split] && current.sceneId == vars.splitsCurrentSceneId[split])
         {
-            // Necron (and some other bosses) has 10k "extra" HP to trigger cutscenes after death
-            // Also, 0 means his HP hasn't loaded yet
-            if (split == "disc4.necron" && (current.necronHP > 10000 || current.necronHP == 0))
+            if (split == "disc4.necron")
             {
-                continue;
+                // Necron (and some other bosses) has 10k "extra" HP to trigger cutscenes after death
+                if (current.necronHp == 64100)
+                {
+                    vars.necronHpLoaded = true;
+                    continue;
+                }
+
+                if (!vars.necronHpLoaded || current.necronHp > 10000)
+                {
+                    continue;
+                }
             }
 
             vars.executedSplits.Add(split);
