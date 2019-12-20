@@ -6,7 +6,7 @@ state("FF9")
     bool isRandomEncounter: "FF9.exe", 0x0106EBB8, 0x38, 0x98, 0x80, 0xB0, 0x58, 0x28, 0xE4;
     ushort necronHP: "FF9.exe", 0x0106EBB8, 0x38, 0x98, 0x20, 0x28, 0xD0, 0x38, 0x48, 0x210, 0x40;
     string50 focusedElement: "FF9.exe", 0x01116790, 0x10, 0x0, 0x10, 0x58, 0x0;
-    int buttonPressed: "mono.dll", 0x002635B8, 0x0, 0x38, 0x100, 0xB8, 0x138;
+    bool buttonPressed: "mono.dll", 0x002635B8, 0x0, 0x38, 0x100, 0xB8, 0x138;
 }
 
 startup
@@ -201,7 +201,7 @@ update
 
 start
 {
-    if (vars.newGameButtonFocused && current.buttonPressed == 1)
+    if (vars.newGameButtonFocused && current.buttonPressed)
     {
         vars.UpdateEncounterCounter(0);
         vars.executedSplits.Clear();
