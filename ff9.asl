@@ -151,7 +151,7 @@ update
 
         if (current.isRandomEncounter || ragtimeBattleIds.Contains(current.battleId))
         {
-            vars.UpdateEncounterCounter(vars.encounters++);
+            vars.UpdateEncounterCounter(vars.encounters + 1);
         }
     }
 
