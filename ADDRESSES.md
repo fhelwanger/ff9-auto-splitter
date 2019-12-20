@@ -44,7 +44,7 @@ Indicates if the current encounter is random or fixed. Ragtime encounters are co
 ## necronHP
 
 - **Type:** `ushort`
-- **Address:** `"FF9.exe", 0x0115CC38, 0x30, 0xE0, 0x10, 0x58, 0xD0, 0x38, 0x40, 0x38, 0x28;`
+- **Address:** `"FF9.exe", 0x0106EBB8, 0x38, 0x20, 0x28, 0xD0, 0x38, 0x38, 0x10, 0x50, 0x40;`
 
 Necron's current HP. Have 10k extra (so 61400 max) to trigger dialogs after death.
 
