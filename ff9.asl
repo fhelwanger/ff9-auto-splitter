@@ -84,6 +84,7 @@ startup
     AddSplit("disc2", "soulcage", "Soulcage", 116, 1756);
     AddSplit("disc2", "amarant", "Amarant", 132, 1605);
     AddSplit("disc2", "iifatreedone", "Iifa Tree Done", 1655, 1656);
+    AddSplit("disc2", "eod2", "End of Disc 2", 1800, 1812);
 
     settings.Add("disc3", true, "Disc 3 Splits");
     AddSplit("disc3", "cards", "Card Tournament", 1903, 2054);
