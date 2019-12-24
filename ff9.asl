@@ -63,6 +63,7 @@ startup
     AddSplit("disc1", "gizamaluke", "Gizamaluke", 326, 707);
     AddSplit("disc1", "burmercia", "Enter Burmercia", 9000, 750);
     AddSplit("disc1", "beatrix1", "Beatrix 1", 4, 768);
+    AddSplit("disc1", "eod1", "End of Disc 1", 70, 800);
 
     settings.Add("disc2", true, "Disc 2 Splits");
     AddSplit("disc2", "blackwaltz32", "Black Waltz 3 2", 52, 811);
