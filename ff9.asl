@@ -108,6 +108,7 @@ startup
     AddSplit("disc3", "silverdragon", "Silver Dragon", 889, 2715);
     AddSplit("disc3", "garland", "Garland", 890, 2715);
     AddSplit("disc3", "kuja", "Kuja", 891, 2720);
+    AddSplit("disc3", "eod3", "End of Disc 3", 2750, 3052);
 
     settings.Add("disc4", true, "Disc 4 Splits");
     AddSplit("disc4", "novadragon", "Nova Dragon", 931, 2753);
