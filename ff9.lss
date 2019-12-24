@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <Run version="1.7.0">
   <GameIcon />
   <GameName>Final Fantasy IX</GameName>
@@ -179,6 +179,15 @@
       <SegmentHistory />
     </Segment>
     <Segment>
+      <Name>End of Disc 1</Name>
+      <Icon />
+      <SplitTimes>
+        <SplitTime name="Personal Best" />
+      </SplitTimes>
+      <BestSegmentTime />
+      <SegmentHistory />
+    </Segment>
+    <Segment>
       <Name>Black Waltz 3 2</Name>
       <Icon />
       <SplitTimes>
@@ -333,6 +342,15 @@
     </Segment>
     <Segment>
       <Name>Iifa Tree Done</Name>
+      <Icon />
+      <SplitTimes>
+        <SplitTime name="Personal Best" />
+      </SplitTimes>
+      <BestSegmentTime />
+      <SegmentHistory />
+    </Segment>
+    <Segment>
+      <Name>End of Disc 2</Name>
       <Icon />
       <SplitTimes>
         <SplitTime name="Personal Best" />
@@ -522,6 +540,15 @@
     </Segment>
     <Segment>
       <Name>Kuja</Name>
+      <Icon />
+      <SplitTimes>
+        <SplitTime name="Personal Best" />
+      </SplitTimes>
+      <BestSegmentTime />
+      <SegmentHistory />
+    </Segment>
+    <Segment>
+      <Name>End of Disc 3</Name>
       <Icon />
       <SplitTimes>
         <SplitTime name="Personal Best" />
