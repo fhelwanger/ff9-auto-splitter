@@ -30,7 +30,7 @@ The ID of the current scene, can be a battle, field, world map, etc.
 ## battleId
 
 - **Type:** `int`
-- **Address:** `"FF9.exe", 0x0115DDC8, 0xE0, 0x20, 0x10, 0x98, 0x7D0, 0x68, 0x7E0, 0x64;`
+- **Address:** `"FF9.exe", 0x0115DDC8, 0x60, 0x20, 0x10, 0x98, 0x7D0, 0x68, 0x7E0, 0x64;`
 
 The ID of the scene of the current battle. Only changes for battles. `sceneId` doesn't change when you get a world map battle, but `battleId` does.
 
