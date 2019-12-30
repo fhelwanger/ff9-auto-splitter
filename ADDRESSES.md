@@ -37,7 +37,7 @@ The ID of the scene of the current battle. Only changes for battles. `sceneId` d
 ## isRandomEncounter
 
 - **Type:** `bool`
-- **Address:** `"FF9.exe", 0x0108CD60, 0x8, 0x18, 0xE0, 0x0, 0x30, 0x208, 0x364;`
+- **Address:** `"FF9.exe", 0x01071080, 0x28, 0x10, 0x0, 0xF0, 0x58, 0x40, 0x64;`
 
 Indicates if the current encounter is random or fixed. Ragtime encounters are counted as fixed.
 
