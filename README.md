@@ -23,7 +23,7 @@ On the "Splits Editor", make sure that the game is set to exactly "Final Fantasy
 
 ### 3. Auto splitter settings
 
-Press the "Settings" button next to the "Activate" button and a new "Component Settings" window should appear. Here you can select if you want to auto start the timer, auto split and which splits you want. Just make sure that if you uncheck some split, you also remove it from your splits on the previous window (for example, if you don't kill Tantarian in your route). The auto-splitter will split based on the order of the splits, so you can name them whatever you want (for example, you can rename "Steiner 3" to "Bomb" and it'll work).
+Press the "Settings" button next to the "Activate" button and a new "Component Settings" window should appear. Here you can select if you want to auto start the timer, auto split and which splits you want. Just make sure that if you uncheck some split, you also remove it from your splits on the previous window (for example, if you don't kill Tantarian in your route, you should remove the "Tantarian" split). The auto-splitter will split based on the order of the splits, so you can name them whatever you want (for example, you can rename "Steiner 3" to "Bomb" and it'll work).
 
 By default, it also includes an encounter counter that will be explained bellow. If you don't want to use the encounter counter, you can just uncheck it here.
 
