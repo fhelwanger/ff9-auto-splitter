@@ -93,6 +93,7 @@ startup
     AddSplit("disc3", "sand", "Sand", 9003, 2200);
     AddSplit("disc3", "oeilvert", "Enter Oeilvert", 9005, 2250);
     AddSplit("disc3", "ark", "Ark", 0, 2260);
+    AddSplit("disc3", "dpstart", "Desert Palace Start", 2206, 2213);
     AddSplit("disc3", "valiapira", "Valia Pira", 525, 2222);
     AddSplit("disc3", "estogaza", "Enter Esto Gaza", 9003, 2300);
     AddSplit("disc3", "reddragons", "Red Dragons", 195, 2361);
@@ -227,23 +228,51 @@ split
             continue;
         }
 
-        if (old.sceneId == vars.splitsOldSceneId[split] && current.sceneId == vars.splitsCurrentSceneId[split])
-        {
-            if (split == "disc4.necron")
-            {
-                // Necron (and some other bosses) has 10k "extra" HP to trigger cutscenes after death
-                if (current.necronHp == 64100)
-                {
-                    vars.necronHpLoaded = true;
-                    continue;
-                }
+        var shouldSplit = false;
 
-                if (!vars.necronHpLoaded || current.necronHp > 10000)
-                {
-                    continue;
-                }
+        if (split == "disc4.necron" && current.sceneId == 938)
+        {
+            if (current.necronHp == 64100) // Necron and some other bosses have 10k "extra" HP to trigger cutscenes after death
+            {
+                vars.necronHpLoaded = true;
             }
 
+            if (vars.necronHpLoaded && current.necronHp <= 10000)
+            {
+                shouldSplit = true;
+            }
+        }
+        else if (split == "disc1.prisoncage" && old.sceneId == 251 && current.sceneId == 252) // If you skip Prison Cage, split
+        {
+            shouldSplit = true;
+        }
+        else if (split == "disc4.maliris" && old.sceneId == 2904 && current.sceneId == 2905) // If you skip Maliris, split
+        {
+            shouldSplit = true;
+        }
+        else if (split == "disc4.tiamat" && old.sceneId == 2908 && current.sceneId == 2909) // If you skip Tiamat, split
+        {
+            shouldSplit = true;
+        }
+        else if (split == "disc4.kraken" && old.sceneId == 2915 && current.sceneId == 2916) // If you skip Kraken, split
+        {
+            shouldSplit = true;
+        }
+        else if (split == "disc4.lich" && old.sceneId == 2919 && current.sceneId == 2920) // If you skip Lich, split
+        {
+            shouldSplit = true;
+        }
+        else if (split == "disc4.deathguise" && old.sceneId == 2926 && current.sceneId == 2927) // If you skip Deathguise, split
+        {
+            shouldSplit = true;
+        }
+        else if (old.sceneId == vars.splitsOldSceneId[split] && current.sceneId == vars.splitsCurrentSceneId[split])
+        {
+            shouldSplit = true;
+        }
+
+        if (shouldSplit)
+        {
             vars.executedSplits.Add(split);
             return true;
         }

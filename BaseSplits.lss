@@ -413,6 +413,15 @@
       <SegmentHistory />
     </Segment>
     <Segment>
+      <Name>Desert Palace Start</Name>
+      <Icon />
+      <SplitTimes>
+        <SplitTime name="Personal Best" />
+      </SplitTimes>
+      <BestSegmentTime />
+      <SegmentHistory />
+    </Segment>
+    <Segment>
       <Name>Valia Pira</Name>
       <Icon />
       <SplitTimes>
