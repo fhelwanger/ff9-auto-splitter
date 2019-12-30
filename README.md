@@ -29,7 +29,7 @@ By default, it also includes an encounter counter that will be explained bellow.
 
 ![](Install/auto-splitter-settings.png)
 
-### 4. Configure load remover
+### 4. Configure the load remover
 
 Download the "Alternate Timing Method" component from the [LiveSplit Components page](http://livesplit.org/components/). Extract the files into your LiveSplit Components folder (for example, "LiveSplit_1.7.6\Components").
 
