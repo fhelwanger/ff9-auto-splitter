@@ -4,7 +4,6 @@ state("FF9")
     int sceneType: "FF9.exe", 0x0115BEA8, 0x48, 0x10, 0x98, 0x270, 0x10, 0x140; // Bundle = 0, Field = 1, World = 2, Battle = 3, Title = 4, QuadMist = 5, Pure = 6, Ending = 7, EndGame = 8, None = 9
     int battleId: "FF9.exe", 0x0106EBB8, 0x38, 0x20, 0x80, 0x208, 0x20, 0x64;
     bool isRandomEncounter: "FF9.exe", 0x0106EBB8, 0x38, 0x98, 0x80, 0xB0, 0x58, 0x28, 0xE4;
-    ushort necronHp: "FF9.exe", 0x0111A3F0, 0x20, 0x1D8, 0x58, 0x2C8, 0x150, 0x38, 0x48, 0x210, 0x40;
     string50 focusedElement: "FF9.exe", 0x01116790, 0x10, 0x0, 0x10, 0x58, 0x0;
     bool buttonPressed: "mono.dll", 0x002635B8, 0x0, 0x38, 0x100, 0xB8, 0x138;
 }
@@ -119,7 +118,6 @@ startup
     AddSplit("disc4", "lich", "Lich", 935, 2919);
     AddSplit("disc4", "deathguise", "Deathguise", 936, 2926);
     AddSplit("disc4", "trancekuja", "Trance Kuja", 937, 2928);
-    AddSplit("disc4", "necron", "Necron", 938, 938);
 
     settings.Add("counter", true, "Encounter Counter");
     settings.SetToolTip("counter", "Add a TextComponent with \"Encounters:\" on the left text to show the counter.");
@@ -128,7 +126,6 @@ startup
     settings.SetToolTip("debug", "Add a TextComponent with \"SceneId:\", \"SceneType:\", \"BattleId:\" or \"IsRandom:\" on the left text to show the variables' values. Used only to debug problems in the auto splitter.");
 
     vars.newGameButtonFocused = false;
-    vars.necronHpLoaded = false;
     vars.encounters = 0;
 }
 
@@ -148,11 +145,6 @@ update
     else
     {
         vars.newGameButtonFocused = false;
-    }
-
-    if (current.sceneId != 938)
-    {
-        vars.necronHpLoaded = false;
     }
 
     if (settings["counter"] && old.sceneType != 3 && current.sceneType == 3)
@@ -230,19 +222,7 @@ split
 
         var shouldSplit = false;
 
-        if (split == "disc4.necron" && current.sceneId == 938)
-        {
-            if (current.necronHp == 64100) // Necron and some other bosses have 10k "extra" HP to trigger cutscenes after death
-            {
-                vars.necronHpLoaded = true;
-            }
-
-            if (vars.necronHpLoaded && current.necronHp <= 10000)
-            {
-                shouldSplit = true;
-            }
-        }
-        else if (split == "disc1.prisoncage" && old.sceneId == 251 && current.sceneId == 252) // If you skip Prison Cage, split
+        if (split == "disc1.prisoncage" && old.sceneId == 251 && current.sceneId == 252) // If you skip Prison Cage, split
         {
             shouldSplit = true;
         }

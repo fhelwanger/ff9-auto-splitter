@@ -41,13 +41,6 @@ The ID of the scene of the current battle. Only changes for battles. `sceneId` d
 
 Indicates if the current encounter is random or fixed. Ragtime encounters are counted as fixed.
 
-## necronHP
-
-- **Type:** `ushort`
-- **Address:** `"FF9.exe", 0x0111A3F0, 0x20, 0x1D8, 0x58, 0x2C8, 0x150, 0x38, 0x48, 0x210, 0x40;`
-
-Necron's current HP. Have 10k extra (so 61400 max) to trigger dialogs after death.
-
 ## focusedElement
 
 - **Type:** `string`
