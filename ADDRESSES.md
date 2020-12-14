@@ -23,7 +23,7 @@ Indicates the type of the current screen. Can be one of the following:
 ## sceneId
 
 - **Type:** `int`
-- **Address:** `"FF9.exe", 0x0106EBB8, 0x38, 0x20, 0x80, 0x210, 0x28, 0x10, 0x10, 0x5C;`
+- **Address:** `"FF9.exe", 0x0115CCC0, 0x48, 0x90, 0xA0, 0x78, 0x120, 0x28, 0x10, 0x10, 0x5C`
 
 The ID of the current scene, can be a battle, field, world map, etc.
 
