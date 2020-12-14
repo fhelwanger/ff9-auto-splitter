@@ -2,8 +2,6 @@ state("FF9")
 {
     int sceneId: "FF9.exe", 0x0106EBB8, 0x38, 0x20, 0x80, 0x210, 0x28, 0x10, 0x10, 0x5C;
     int sceneType: "FF9.exe", 0x0115BEA8, 0x48, 0x10, 0x98, 0x270, 0x10, 0x140; // Bundle = 0, Field = 1, World = 2, Battle = 3, Title = 4, QuadMist = 5, Pure = 6, Ending = 7, EndGame = 8, None = 9
-    int battleId: "FF9.exe", 0x0106EBB8, 0x38, 0x20, 0x80, 0x208, 0x20, 0x64;
-    bool isRandomEncounter: "FF9.exe", 0x0106EBB8, 0x38, 0x98, 0x80, 0xB0, 0x58, 0x28, 0xE4;
     string50 focusedElement: "FF9.exe", 0x01116790, 0x10, 0x0, 0x10, 0x58, 0x0;
     bool buttonPressed: "mono.dll", 0x002635B8, 0x0, 0x38, 0x100, 0xB8, 0x138;
 }
@@ -12,20 +10,6 @@ startup
 {
     vars.FindComponentByLeftText = (Func<string, dynamic>)(
         text => timer.Layout.Components.FirstOrDefault((dynamic x) => x.GetType().Name == "TextComponent" && x.Settings.Text1 == text)
-    );
-
-    vars.UpdateEncounterCounter = (Action<int>)(
-        count =>
-        {
-            vars.encounters = count;
-
-            var componentEncounters = vars.FindComponentByLeftText("Encounters:");
-
-            if (componentEncounters != null)
-            {
-                componentEncounters.Settings.Text2 = vars.encounters.ToString();
-            }
-        }
     );
 
     vars.splits = new List<string>();
@@ -119,14 +103,10 @@ startup
     AddSplit("disc4", "deathguise", "Deathguise", 936, 2926);
     AddSplit("disc4", "trancekuja", "Trance Kuja", 937, 2928);
 
-    settings.Add("counter", true, "Encounter Counter");
-    settings.SetToolTip("counter", "Add a TextComponent with \"Encounters:\" on the left text to show the counter.");
-
     settings.Add("debug", false, "Debug Stuff");
-    settings.SetToolTip("debug", "Add a TextComponent with \"SceneId:\", \"SceneType:\", \"BattleId:\" or \"IsRandom:\" on the left text to show the variables' values. Used only to debug problems in the auto splitter.");
+    settings.SetToolTip("debug", "Add a TextComponent with \"SceneId:\" or \"SceneType:\" on the left text to show the variables' values. Used only to debug problems in the auto splitter.");
 
     vars.newGameButtonFocused = false;
-    vars.encounters = 0;
 }
 
 update
@@ -145,16 +125,6 @@ update
     else
     {
         vars.newGameButtonFocused = false;
-    }
-
-    if (settings["counter"] && old.sceneType != 3 && current.sceneType == 3)
-    {
-        var ragtimeBattleIds = new List<int> { 627, 634, 753, 755, 941, 942, 943, 944 };
-
-        if (current.isRandomEncounter || ragtimeBattleIds.Contains(current.battleId))
-        {
-            vars.UpdateEncounterCounter(vars.encounters + 1);
-        }
     }
 
     if (settings["debug"])
@@ -178,26 +148,6 @@ update
                 componentSceneType.Settings.Text2 = current.sceneType.ToString();
             }
         }
-
-        if (old.battleId != current.battleId)
-        {
-            var componentBattleId = vars.FindComponentByLeftText("BattleId:");
-
-            if (componentBattleId != null)
-            {
-                componentBattleId.Settings.Text2 = current.battleId.ToString();
-            }
-        }
-
-        if (old.isRandomEncounter != current.isRandomEncounter)
-        {
-            var componentIsRandom = vars.FindComponentByLeftText("IsRandom:");
-
-            if (componentIsRandom != null)
-            {
-                componentIsRandom.Settings.Text2 = current.isRandomEncounter.ToString();
-            }
-        }
     }
 }
 
@@ -205,7 +155,6 @@ start
 {
     if (vars.newGameButtonFocused && current.buttonPressed)
     {
-        vars.UpdateEncounterCounter(0);
         vars.executedSplits.Clear();
         return true;
     }

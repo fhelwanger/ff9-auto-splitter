@@ -27,20 +27,6 @@ Indicates the type of the current screen. Can be one of the following:
 
 The ID of the current scene, can be a battle, field, world map, etc.
 
-## battleId
-
-- **Type:** `int`
-- **Address:** `"FF9.exe", 0x0106EBB8, 0x38, 0x20, 0x80, 0x208, 0x20, 0x64;`
-
-The ID of the scene of the current battle. Only changes for battles. `sceneId` doesn't change when you get a world map battle, but `battleId` does.
-
-## isRandomEncounter
-
-- **Type:** `bool`
-- **Address:** `"FF9.exe", 0x0106EBB8, 0x38, 0x98, 0x80, 0xB0, 0x58, 0x28, 0xE4;`
-
-Indicates if the current encounter is random or fixed. Ragtime encounters are counted as fixed.
-
 ## focusedElement
 
 - **Type:** `string`
@@ -54,17 +40,3 @@ It's a kind of "description" of the "current object". It was the way that I foun
 - **Address:** `"mono.dll", 0x002635B8, 0x0, 0x38, 0x100, 0xB8, 0x138;`
 
 Indicates if some button on the title screen is pressed.
-
-## isFmv
-
-- **Type:** `int`
-- **Address:** `"MSVCR120.dll", 0xDC518;`
-
-9 if there's some FMV playing. Otherwise 0.
-
-## textboxIndex
-
-- **Type:** `int`
-- **Address:** `"FF9.exe", 0x0115BEA8, 0x400, 0xE0, 0x98, 0x5E0, 0x10, 0x614;`
-
-The index of the textbox being displayed on the current scene.
