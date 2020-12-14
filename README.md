@@ -24,6 +24,8 @@ On the "Splits Editor", make sure that the game is set to exactly "Final Fantasy
 
 Press the "Settings" button next to the "Activate" button and a new "Component Settings" window should appear. Here you can select if you want to auto start the timer, auto split and which splits you want. Just make sure that if you uncheck some split, you also remove it from your splits on the previous window (for example, if you don't kill Tantarian in your route, you should remove the "Tantarian" split). The auto-splitter will split based on the order of the splits, so you can name them whatever you want (for example, you can rename "Steiner 3" to "Bomb" and it'll work).
 
+Please note that **the Necron split is not automated** because it works differently from the other ones. This is the only split that you should do manually.
+
 ![](Install/auto-splitter-settings.png)
 
 ### 4. Configure the load remover
