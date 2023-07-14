@@ -4,6 +4,7 @@ state("FF9")
     int sceneType: "FF9.exe", 0x0115BEA8, 0x48, 0x10, 0x98, 0x270, 0x10, 0x140; // Bundle = 0, Field = 1, World = 2, Battle = 3, Title = 4, QuadMist = 5, Pure = 6, Ending = 7, EndGame = 8, None = 9
     string50 focusedElement: "FF9.exe", 0x01116790, 0x10, 0x0, 0x10, 0x58, 0x0;
     bool buttonPressed: "mono.dll", 0x002635B8, 0x0, 0x38, 0x100, 0xB8, 0x138;
+	byte csrBreakFlag: "FF9.exe", 0x0106EBB8, 0x38, 0x20, 0x80, 0x230, 0x20, 0x1FF;
 }
 
 startup
@@ -210,5 +211,5 @@ split
 
 isLoading
 {
-    return current.sceneType == 9;
+    return (current.sceneType == 9 || current.csrBreakFlag == 100);
 }
