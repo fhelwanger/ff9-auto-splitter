@@ -108,6 +108,7 @@ startup
     settings.SetToolTip("debug", "Add a TextComponent with \"SceneId:\" or \"SceneType:\" on the left text to show the variables' values. Used only to debug problems in the auto splitter.");
 
     vars.newGameButtonFocused = false;
+    vars.isFightingArk = false;
 }
 
 update
@@ -126,6 +127,21 @@ update
     else
     {
         vars.newGameButtonFocused = false;
+    }
+
+    // Both Ark fight and title screen have sceneId equals 0.
+    // Because of that, we need to track whether we were on the title screen or a battle when sceneId is 0,
+    // so we don't split by accident after continuing a game over on Ark.
+    if (current.sceneId == 0)
+    {
+        if (current.sceneType == 4)
+        {
+            vars.isFightingArk = false;
+        }
+        else if (current.sceneType == 3)
+        {
+            vars.isFightingArk = true;
+        }
     }
 
     if (settings["debug"])
@@ -198,7 +214,14 @@ split
         }
         else if (old.sceneId == vars.splitsOldSceneId[split] && current.sceneId == vars.splitsCurrentSceneId[split])
         {
-            shouldSplit = true;
+            if (split == "disc3.ark")
+            {
+                shouldSplit = vars.isFightingArk;
+            }
+            else
+            {
+                shouldSplit = true;
+            }
         }
 
         if (shouldSplit)
